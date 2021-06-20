@@ -1,5 +1,6 @@
 from github import Github
 
+import os
 import requests
 
 def upload_file(repo, local_file, path):
@@ -30,12 +31,22 @@ def download_file(repo, path, fname = None):
     with open(fname, "wb") as f:
         f.write(r.content)
 
+    return fname
+
 def create_dir(repo, path):
     repo.create_file(f'{path}/README.md', 'Directory created by github-fs', '')
+
+def move_file(repo, path, new_path):
+    fname = download_file(repo, path)
+    delete_file(repo, path)
+    upload_file(repo, fname, new_path)
+    os.remove(fname)
+
 
 def main():
     g = Github('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')
     repo = g.get_repo('kaplanbar/test-repo')
+    move_file(repo, 'test.txt', 'test_dir/test.txt')
 
 
 if __name__ == '__main__':
