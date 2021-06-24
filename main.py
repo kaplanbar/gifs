@@ -36,7 +36,7 @@ def download_file(repo, path, fname = None):
 def create_dir(repo, path):
     repo.create_file(f'{path}/README.md', 'Directory created by github-fs', '')
 
-def remove_dir(repo, path):
+def delete_dir(repo, path):
     contents = repo.get_contents(path)
     for content in contents:
         delete_file(repo, content.path)
