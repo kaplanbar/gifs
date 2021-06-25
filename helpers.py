@@ -14,6 +14,10 @@ def get_file_sha(repo, path):
     content = repo.get_contents(path)
     return content.sha
 
+def list_files(repo, path):
+    files = repo.get_contents(path)
+    return files
+
 def delete_file(repo, path):
     sha = get_file_sha(repo, path)
     repo.delete_file(path, "File deleted by github-fs", sha)
