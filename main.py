@@ -54,6 +54,26 @@ def cp(config, src, dest):
 @cli.command()
 @click.argument('path')
 @pass_config
+def ls(config, path):
+    """
+    Similar to the 'ls' command at the Linux, you do not need to specify 'gifs:' at the
+    beginning of the path
+    """
+
+    files = helpers.list_files(config.repo, path)
+
+    styles = {
+        'dir': 'cyan',
+        'file': 'white'
+    }
+
+    for file in files:
+        click.secho(f'{file.name} ', fg=styles[file.type], nl=False)
+    click.echo('')
+
+@cli.command()
+@click.argument('path')
+@pass_config
 def rm(config, path):
     """
     Remove a file on the Github repository, add 'gifs:' at the beginning of the path
