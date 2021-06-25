@@ -51,6 +51,22 @@ def cp(config, src, dest):
     else:
         click.echo('Click does not support copying a local file to a local direction, add "gifs:" at the beginning of the path in repository')
 
+@cli.command()
+@click.argument('path')
+@pass_config
+def rm(config, path):
+    """
+    Remove a file on the Github repository, add 'gifs:' at the beginning of the path
+    of the file
+
+    Deleting a local file is not supported
+    """
+
+    if path.startswith('gifs:'):
+        helpers.delete_file(config.repo, path[5:])
+    else:
+        click.echo('Please add "gifs:" at the beginning of the path')
+
 
 if __name__ == '__main__':
     cli()
