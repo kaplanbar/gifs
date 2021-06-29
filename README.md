@@ -8,13 +8,15 @@ Gifs is a command-line application that allows you to use commands like "cp, ls,
 You have to add "gifs:" as a prefix to your paths if they are referring to a path in the repository.
 
 ```bash
-gifs --token=token123 --repository=kaplanbar/gifs cp main.cpp gifs:main.cpp
+gifs --token=token123 --repository=kaplanbar/gifs mkdir gifs:codes
+
+gifs --token=token123 --repository=kaplanbar/gifs cp gifs.py gifs:codes/gifs.py
 
 gifs --token=token123 --repository=kaplanbar/gifs ls gifs:.
 
-gifs --token=token123 --repository=kaplanbar/gifs rm gifs:main.cpp
+gifs --token=token123 --repository=kaplanbar/gifs ls gifs:codes
 
-gifs --token=token123 --repository=kaplanbar/gifs mkdir gifs:codes
+gifs --token=token123 --repository=kaplanbar/gifs rm gifs:codes/gifs.py
 
 gifs --token=token123 --repository=kaplanbar/gifs rmdir gifs:codes
 ```
