@@ -4,7 +4,7 @@ import requests
 def upload_file(repo, local_file, path):
     with open(local_file, 'r') as f:
         content = f.read()
-        repo.create_file(path, 'File uploaded by github-fs', content)
+        repo.create_file(path, 'File uploaded by gifs', content)
 
 def get_file_sha(repo, path):
     content = repo.get_contents(path)
@@ -16,7 +16,7 @@ def list_files(repo, path):
 
 def delete_file(repo, path):
     sha = get_file_sha(repo, path)
-    repo.delete_file(path, "File deleted by github-fs", sha)
+    repo.delete_file(path, "File deleted by gifs", sha)
 
 def download_file(repo, path, fname = None):
     file = repo.get_contents(path)
@@ -32,7 +32,7 @@ def download_file(repo, path, fname = None):
     return fname
 
 def create_dir(repo, path):
-    repo.create_file(f'{path}/README.md', 'Directory created by github-fs', '')
+    repo.create_file(f'{path}/README.md', 'Directory created by gifs', '')
 
 def delete_dir(repo, path):
     contents = repo.get_contents(path)
