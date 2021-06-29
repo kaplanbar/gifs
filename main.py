@@ -90,6 +90,7 @@ def rm(config, path):
         path = path[5:]
     else:
         click.echo('Please add "gifs:" at the beginning of the path')
+        return
 
     helpers.delete_file(config.repo, path[5:])
 
@@ -105,8 +106,25 @@ def mkdir(config, path):
         path = path[5:]
     else:
         click.echo('Please add "gifs:" at the beginning of the path')
+        return
     
     helpers.create_dir(config.repo, path)
+
+@cli.command()
+@click.argument('path')
+@pass_config
+def rmdir(config, path):
+    """
+    Deletes the directory on the path
+    """
+
+    if path.startswith('gifs:'):
+        path = path[5:]
+    else:
+        click.echo('Please add "gifs:" at the beginning of the path')
+        return
+
+    helpers.delete_dir(config.repo, path)
 
 if __name__ == '__main__':
     cli()
