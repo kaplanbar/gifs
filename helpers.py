@@ -2,13 +2,9 @@ import os
 import requests
 
 def upload_file(repo, local_file, path):
-    try:
-        with open(local_file, 'r') as f:
-            content = f.read()
-            repo.create_file(path, 'File uploaded by github-fs', content)
-        print('File uploaded successfuly')
-    except FileNotFoundError:
-        print(f'{local_file} could not be found in the current directory')
+    with open(local_file, 'r') as f:
+        content = f.read()
+        repo.create_file(path, 'File uploaded by github-fs', content)
 
 def get_file_sha(repo, path):
     content = repo.get_contents(path)
