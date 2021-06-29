@@ -1,7 +1,6 @@
 from github import Github
 
 import helpers
-
 import click
 
 class Config():
@@ -56,9 +55,14 @@ def cp(config, src, dest):
 @pass_config
 def ls(config, path):
     """
-    Similar to the 'ls' command at the Linux, you do not need to specify 'gifs:' at the
-    beginning of the path
+    Similar to the 'ls' command at the Linux, please add 'gifs:' at the beginning of the path
     """
+
+    if path.startswith('gifs:'):
+        path = path[5:]
+    else:
+        click.echo('Please add "gifs:" at the beginning of the path')
+        return
 
     files = helpers.list_files(config.repo, path)
 
@@ -83,10 +87,26 @@ def rm(config, path):
     """
 
     if path.startswith('gifs:'):
-        helpers.delete_file(config.repo, path[5:])
+        path = path[5:]
     else:
         click.echo('Please add "gifs:" at the beginning of the path')
 
+    helpers.delete_file(config.repo, path[5:])
+
+@cli.command()
+@click.argument('path')
+@pass_config
+def mkdir(config, path):
+    """
+    Creates a directory on the path
+    """
+
+    if path.startswith('gifs:'):
+        path = path[5:]
+    else:
+        click.echo('Please add "gifs:" at the beginning of the path')
+    
+    helpers.create_dir(config.repo, path)
 
 if __name__ == '__main__':
     cli()
