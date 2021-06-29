@@ -63,17 +63,19 @@ def ls(config, path):
     else:
         click.echo('Please add "gifs:" at the beginning of the path')
         return
+    try:
+        files = helpers.list_files(config.repo, path)
 
-    files = helpers.list_files(config.repo, path)
+        styles = {
+            'dir': 'cyan',
+            'file': 'white'
+        }
 
-    styles = {
-        'dir': 'cyan',
-        'file': 'white'
-    }
-
-    for file in files:
-        click.secho(f'{file.name} ', fg=styles[file.type], nl=False)
-    click.echo('')
+        for file in files:
+            click.secho(f'{file.name} ', fg=styles[file.type], nl=False)
+        click.echo('')
+    except:
+        click.echo('An error occured')
 
 @cli.command()
 @click.argument('path')
@@ -91,8 +93,11 @@ def rm(config, path):
     else:
         click.echo('Please add "gifs:" at the beginning of the path')
         return
-
-    helpers.delete_file(config.repo, path[5:])
+    try:
+        helpers.delete_file(config.repo, path[5:])
+        click.echo('File deleted successfuly')
+    except:
+        click.echo('An error occured')
 
 @cli.command()
 @click.argument('path')
@@ -107,8 +112,11 @@ def mkdir(config, path):
     else:
         click.echo('Please add "gifs:" at the beginning of the path')
         return
-    
-    helpers.create_dir(config.repo, path)
+    try:
+        helpers.create_dir(config.repo, path)
+        click.echo('Directory created successfuly')
+    except:
+        click.echo('An error occured')
 
 @cli.command()
 @click.argument('path')
@@ -123,8 +131,8 @@ def rmdir(config, path):
     else:
         click.echo('Please add "gifs:" at the beginning of the path')
         return
-
-    helpers.delete_dir(config.repo, path)
-
-if __name__ == '__main__':
-    cli()
+    try:
+        helpers.delete_dir(config.repo, path)
+        click.echo('Directory deleted successfuly')
+    except:
+        click.echo('An error occured')
